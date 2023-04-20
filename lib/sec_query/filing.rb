@@ -19,7 +19,7 @@ module SecQuery
     end
 
     def self.fetch(uri, &blk)
-      response = HTTParty.get(uri.to_s, timeout: 10, header: SecQuery.configuration.request_header)
+      response = HTTParty.get(uri.to_s, timeout: 10, headers: SecQuery.configuration.request_header)
       parse_rss(response.body, &blk)
     end
 
@@ -51,7 +51,7 @@ module SecQuery
 
     def self.for_date(date, &blk)
       url = SecURI.for_date(date).to_s
-      response = HTTParty.get(url, timeout: 10, header: SecQuery.configuration.request_header)
+      response = HTTParty.get(url, timeout: 10, headers: SecQuery.configuration.request_header)
       filings_for_index(response.body).each(&blk)
     end
 
@@ -169,7 +169,7 @@ module SecQuery
 
     def content(&error_blk)
       @content ||= begin
-                     response = HTTParty.get(self.link,  header: SecQuery.configuration.request_header)
+                     response = HTTParty.get(self.link,  headers: SecQuery.configuration.request_header)
                      response.body
                    rescue HTTParty::Error => e
                      puts "HTTParty Error: #{e.message}"
