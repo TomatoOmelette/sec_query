@@ -19,15 +19,15 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_development_dependency 'bundler', '~> 2.2.14'
+  s.add_development_dependency 'bundler', '~> 2.4'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 3.10'
   s.add_development_dependency 'vcr', '~> 6.0'
   s.add_development_dependency 'webmock', '~> 3.12'
   s.add_development_dependency 'rubocop', '~> 1.11'
-  s.add_runtime_dependency 'rest-client', '~> 2.1.0'
   s.add_runtime_dependency 'addressable', '~> 2.7'
-  s.add_runtime_dependency 'nokogiri', '~> 1'
-  s.add_runtime_dependency 'activesupport', '~> 5.2'
+  s.add_runtime_dependency 'nokogiri', '~> 1.14'
+  s.add_runtime_dependency 'activesupport', '~> 7.0'
   s.add_runtime_dependency 'rss', '~> 0.2'
+  s.add_runtime_dependency 'httparty', '~> 0.19'
 end

@@ -5,6 +5,11 @@ require 'bundler/setup'
 require 'sec_query'
 require 'support/vcr'
 
+SecQuery.configure do |config|
+  config.request_header = { "User-Agent" => "Testy McTesters, LLC hello@world.com",
+                            "Accept-Encoding" => "gzip, deflate" }
+end
+
 def is_valid?(entity)
   expect(entity).to_not be_nil
   expect(entity.name).to eq query[:name]

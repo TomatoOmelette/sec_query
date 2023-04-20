@@ -20,15 +20,15 @@ module SecQuery
     end
 
     def self.query(url)
-      RestClient.get(url) do |response, request, result, &block|
-        case response.code
-        when 200
-          return response
-        else
-          response.return!(request, result, &block)
-        end
+      response = HTTParty.get(url, headers: SecQuery.configuration.request_header)
+      case response.code
+      when 200
+        return response
+      else
+        raise "Error: #{response.code} - #{response.message}"
       end
     end
+
 
     def self.find(entity_args)
       temp = {}

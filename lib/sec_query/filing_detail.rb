@@ -15,7 +15,7 @@ module SecQuery
     end
 
     def self.fetch(uri)
-      response = RestClient::Request.execute(method: :get, url: uri.to_s.gsub('http:', 'https:'), timeout: 10)
+      response = HTTParty.get(uri.to_s.gsub('http:', 'https:'), timeout: 10, header: SecQuery.configuration.request_header)
       document = Nokogiri::HTML(response.body)
       filing_date = document.xpath('//*[@id="formDiv"]/div[2]/div[1]/div[2]').text
       accepted_date = document.xpath('//*[@id="formDiv"]/div[2]/div[1]/div[4]').text

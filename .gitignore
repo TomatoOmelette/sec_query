@@ -17,3 +17,4 @@ pkg/*
 rdoc
 spec/support/vcr_cassettes
 spec/support/vcr_cassettes/*
+.idea

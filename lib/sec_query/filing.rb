@@ -19,10 +19,10 @@ module SecQuery
     end
 
     def self.fetch(uri, &blk)
-      RestClient::Request.execute(method: :get, url: uri.to_s, timeout: 10) do |response, request, result, &block|
-        parse_rss(response.body, &blk)
-      end
+      response = HTTParty.get(uri.to_s, timeout: 10, header: SecQuery.configuration.request_header)
+      parse_rss(response.body, &blk)
     end
+
 
     def self.recent(options = {}, &blk)
       start = options.fetch(:start, 0)
@@ -51,10 +51,10 @@ module SecQuery
 
     def self.for_date(date, &blk)
       url = SecURI.for_date(date).to_s
-      RestClient::Request.execute(method: :get, url: url, timeout: 10) do |response, request, result, &block|
-        filings_for_index(response.body).each(&blk)
-      end
+      response = HTTParty.get(url, timeout: 10, header: SecQuery.configuration.request_header)
+      filings_for_index(response.body).each(&blk)
     end
+
 
     def self.filings_for_index(index)
       [].tap do |filings|
@@ -165,15 +165,21 @@ module SecQuery
       filings
     end
 
+    require 'httparty'
+
     def content(&error_blk)
-      @content ||= RestClient.get(self.link)
-    rescue RestClient::ResourceNotFound => e
-      puts "404 Resource Not Found: Bad link #{ self.link }"
-      if block_given?
-        error_blk.call(e, self)
-      else
-        raise e
-      end
+      @content ||= begin
+                     response = HTTParty.get(self.link,  header: SecQuery.configuration.request_header)
+                     response.body
+                   rescue HTTParty::Error => e
+                     puts "HTTParty Error: #{e.message}"
+                     if block_given?
+                       error_blk.call(e, self)
+                     else
+                       raise e
+                     end
+                   end
     end
+
   end
 end
