@@ -1,20 +1,21 @@
-# sec_query
+# sec_query resurrection
 
-A ruby gem for searching and retrieving data from the Security and Exchange Commission's Edgar web system.
+This is a hasty refactor of sec_query as the original developer went out for cigarettes a few years ago and never came back.
+HTTParty has replaced the deprecated rest-client gem and other dependencies have been updated.
+
+I've also added a configuration class for setting a request header user agent, as required by EDGAR in 2023.
+
+sec_query is a ruby gem for searching and retrieving data from the Security and Exchange Commission's Edgar web system.
 
 Look-up an Entity - person or company - by Central Index Key (CIK), stock symbol, company name or person (by first and last name).
 
 Additionally retrieve some, or all, Relationships, Transactions and Filings as recorded by the SEC.
 
-## Note: 9/13/16, SEC.GOV embraces SSL!
-
-On or before Septmember 13th, 2016, the SEC.gov updated their site to use SSL (Huzzah!). Version 1.2.0 addresses this change. All versions less than 1.2.0, will cease to function as expected. Update immediately.
-
 ## Installation
 
-To install the 'sec_query' Ruby Gem run the following command at the terminal prompt.
+Add this line to your application's Gemfile:
 
-`gem install sec_query`
+    gem 'sec_query', git: 'https://github.com/TomatoOmelette/sec_query.git'
 
 For an example of what type of information 'sec_query' can retrieve, run the following command:
 
@@ -25,6 +26,19 @@ If running 'sec_query' from the command prompt in irb:
 `irb -rubygems`
 
 `require "sec_query"`
+
+#### Request Header
+EDGAR requires that you set a User-Agent header in your request.  If you do not, you will receive a 403 Forbidden response.
+
+You can do this in an initializer (config/initializer/sec_query.rb) like so:
+```
+SecQuery.configure do |config|
+    config.request_header = { "User-Agent" => "Your Busines, Inc. your_email@host.com" }
+end
+```
+
+### Rate limiting
+FYI: EDGAR limits the number of requests you can make to 10 per second. 
 
 ## Functionality
 
