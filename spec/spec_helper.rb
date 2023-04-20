@@ -6,7 +6,7 @@ require 'sec_query'
 require 'support/vcr'
 
 SecQuery.configure do |config|
-  config.request_header = { "User-Agent" => "Testy McTesters, LLC hello@world.com",
+  config.request_header = { "User-Agent" => "Your Business, hello@yourbusiness.com",
                             "Accept-Encoding" => "gzip, deflate" }
 end
 

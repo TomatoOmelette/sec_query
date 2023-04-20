@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'debug'
 module SecQuery
   # => SecQuery::Entity
   # SecQuery::Entity is the root class which is responsible for requesting,

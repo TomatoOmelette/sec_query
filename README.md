@@ -33,7 +33,7 @@ EDGAR requires that you set a User-Agent header in your request.  If you do not,
 You can do this in an initializer (config/initializer/sec_query.rb) like so:
 ```
 SecQuery.configure do |config|
-    config.request_header = { "User-Agent" => "Your Business, Inc. your_email@host.com" }
+    config.request_header = { "User-Agent" => "Your Business, your_email@host.com" }
 end
 ```
 

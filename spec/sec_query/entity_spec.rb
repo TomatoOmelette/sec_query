@@ -13,6 +13,7 @@ describe SecQuery::Entity do
       context "when quering by #{key}" do
         describe "as hash" do
 
+
           let(:entity){ SecQuery::Entity.find({ key => query[key] }) }
 
           it "should be valid" do

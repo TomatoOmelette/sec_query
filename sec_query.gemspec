@@ -25,9 +25,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr', '~> 6.0'
   s.add_development_dependency 'webmock', '~> 3.12'
   s.add_development_dependency 'rubocop', '~> 1.11'
+  s.add_development_dependency 'debug'
   s.add_runtime_dependency 'addressable', '~> 2.7'
   s.add_runtime_dependency 'nokogiri', '~> 1.14'
   s.add_runtime_dependency 'activesupport', '~> 7.0'
   s.add_runtime_dependency 'rss', '~> 0.2'
-  s.add_runtime_dependency 'httparty', '~> 0.19'
+  s.add_runtime_dependency 'httparty', '~> 0.21'
 end

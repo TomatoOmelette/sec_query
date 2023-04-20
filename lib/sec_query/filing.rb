@@ -33,7 +33,7 @@ module SecQuery
       start += count
       return if start >= limit
       recent({ start: start, count: count, limit: limit }, &blk)
-    rescue OpenURI::HTTPError
+    rescue HTTParty::Error
       return
     end
 
@@ -45,7 +45,7 @@ module SecQuery
       start += count
       return if start >= limit
       for_cik(cik, { start: start, count: count, limit: limit }, &blk)
-    rescue OpenURI::HTTPError
+    rescue HTTParty::Error
       return
     end
 
